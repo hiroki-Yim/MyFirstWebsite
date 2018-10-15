@@ -30,6 +30,7 @@ function insertMsg($title, $writer, $content){  //게시글에 작성된 글을 
           $pstmt->execute();
     } catch (PDOException $e) {
       exit($e->getMessage());
+      //ALTER TABLE tmp AUTO_INCREMENT = $num(가장 최근글);, 으로 가장 최근에 생성된 게시 글 번호로 자동 인덱싱을 맞출 수 있음 (글 지워도 최근 글 번호로 $num값 주면 됨)
     }
   }
 
@@ -117,5 +118,21 @@ function insertMsg($title, $writer, $content){  //게시글에 작성된 글을 
     }
       return $totalCount;
   }
+
+  function fileupload($file_name, $file_size){
+    try{
+      $sql = "insert files set file_name=:file_name, file_size=:file_size";
+      // $sql = "insert into files(file_name, file_size) values(:file_name, :file_size)";
+      $pstmt = $this->db->prepare($sql);
+      $pstmt->bindValue(":file_name", $file_name, PDO::PARAM_STR);
+      $pstmt->bindValue(":file_size", $file_size, PDO::PARAM_INT);
+      $pstmt->execute();
+    }catch(PDOException $e){
+      exit($e->getMessage());
+    }
+  }
+
+
+
 }
 ?>

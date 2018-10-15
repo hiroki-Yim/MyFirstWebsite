@@ -1,0 +1,9 @@
+.prenex a{  /* 이전 글 다음 글 css 적용, 검정색, decoration제거 */
+  text-decoration: none;
+  color : black;
+  font-size: 1em;
+}
+
+.prenex input{ /* 다음 글 이전 글 버튼 공간 넓힘 */
+  margin: 2px;
+}

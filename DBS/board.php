@@ -6,25 +6,21 @@ $id = isset($_SESSION["id"]) ? $_SESSION["id"] : "";
 $prev = false;
 $next = false;
 
-$dao = new boardDao();        //  1. DB에 등록된 게시글 리스트를 인출(boardDao에게 요청)
-
+$dao = new boardDao();               //  1. DB에 등록된 게시글 리스트를 인출(boardDao에게 요청)
                                                                           /////
-$currentPage = requestValue("page");
-// http://localhost/dbs/board.php?page=-3
-$totalCount = $dao->getNumMsgs(); //게시판 테이블에 게시글이 총 몇 개인지 받아옴
-// 집단함수, aggregate function
-// select count(*) from board;
+$currentPage = requestValue("page"); // ?
+$totalCount = $dao->getNumMsgs();    // 게시판 테이블에 게시글이 총 몇 개인지 받아옴
+// 집단함수, aggregate function select count(*) from board;
 if($totalCount > 0){
   $totalPages = ceil($totalCount/NUM_LINES);                            // total page = ceil(전체 게시글 수 / NUM_LINES) 올림 함수 ceil
   if($currentPage < 1){ $currentPage = 1; }
   if($currentPage > $totalPages){ $currentPage = $totalPages; }
 
   $start = ($currentPage - 1) * NUM_LINES;
-  $msgs = $dao->getManyMsgs($start, NUM_LINES);  //  DB에 있는 모든 글 정보를 가져옴
+  $msgs = $dao->getManyMsgs($start, NUM_LINES);                         //  DB에 있는 모든 글 정보를 가져옴
 
   $startPage = floor(($currentPage-1)/NUM_PAGE_LINKS)*NUM_PAGE_LINKS+1; //내 림 함수 floor 사용
   $endPage = $startPage + NUM_PAGE_LINKS - 1;                           // NUM_PAGE_LINKS 만큼 보여 주겠다.
-
 
   if($endPage > $totalPages){ $endPage = $totalPages; }                 // 계산 상으로 endpage가 20이었는데 totalpages가 15이면 endpage로 하자
   if($startPage == 1){ $prev = true; }                                  // 만약 현재 페이지가 1이면
@@ -101,7 +97,7 @@ else{}//게시글이 없을 때
   <?php endif ?>
   <br>
   <br>
-      <input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='<?php bdUrl("write_Form.php", 0, $currentPage) ?>'">  <!-- 글쓰기 버튼 생성 -->
+      <input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='<?= bdUrl("write_Form.php", 0, $currentPage) ?>'">  <!-- 글쓰기 버튼 생성 -->
     </div>
   </body>
 </html>

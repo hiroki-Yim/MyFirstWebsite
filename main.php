@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="file/assets/css/style.min.css">
 <link rel="stylesheet" href="file/assets/css/modules.css">
+<link rel="stylesheet" href="./css/login_form.css">
 </head>
 <body>
 <div class="header">
@@ -25,12 +26,13 @@
 
 <div class="navbar">
   <div id="login">
-    <a href="login_main.php"><div class="label">로그인</div></a>
+  
+    <a onclick="document.getElementById('login_btn').style.display='block'" style="width:auto;"><div class="label">로그인</div></a>
     <a href="registerForm.php"><div class="label">회원가입</div></a>
   </div>
   <a href="logout.php"> <div class="label" id = 'logout' style="display:none;"> 로그아웃 </div></a>
   <a href="update_Form.php"><div class="label" id ='update' style="display:none;">회원정보 수정</div></a>
-  <a id='board'><div class="label">게시판</div></a>
+  <a href="DBS/board.php" id='board'><div class="label">게시판</div></a>
 </div>
 
 <div class="row">
@@ -109,6 +111,28 @@
   </div>
 </footer>
 
+<!-- The Modal -->
+<div id="login_btn" class="modal">
+  <span onclick="document.getElementById('login_btn').style.display='none'" 
+class="close" title="Close Modal">&times;</span>
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" action="./login_mainForm.php">
+    <div class="imgcontainer">
+      <img src="./img/login_icon.svg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container wrapper">
+      <b>학번</b>
+      <input type="text" placeholder="학번" name="id" required>
+      <b>비밀번호</b>
+      <input type="password" placeholder="비밀번호" name="pwd" required>
+      <button type="submit">로그인</button>
+      <button class="pwd cancelbtn" onclick="location.href='registerForm.php'">아직 회원이 아니세요?</button>
+    </div>
+  </form>
+</div>
+
 <script>    //php와 js의 문법적 차이, php는 빈 문자열이 = null 하지만, js는 undefined가 뜸 그래서 isset으로 갖고 와야함
 if ('<?= isset($_SESSION["id"]) ?>') { // 세션이 있을 때 = 로그인이 되어 있을 때
     $("#login").css("display", "none");
@@ -116,17 +140,28 @@ if ('<?= isset($_SESSION["id"]) ?>') { // 세션이 있을 때 = 로그인이 �
     $("#logout").css("display", "block");
 } //else { location.href="./login_main.php"; 세션이 없는사람은 들어올 수 없게 함, }
 
-$(function(){                     // 게시판을 메인 화면에 출력하기 위해 ajax통신을 이용함
-  $("#board").click(function(){   // 게시판 버튼을 눌렀을 시 받은 data를 기반으로 main부분에 동적으로 생성
-  $.ajax({
-    type: 'post' ,
-    url: 'board.php' ,
-    dataType : 'html' ,
-    success: function(data) {
-      $("#listDiv").html(data);
-    } });
-  })
-})
+// $(function(){                     // 게시판을 메인 화면에 출력하기 위해 ajax통신을 이용함
+//   $("#board").click(function(){   // 게시판 버튼을 눌렀을 시 받은 data를 기반으로 main부분에 동적으로 생성
+//   $.ajax({
+//     type: 'get' ,
+//     url: './DBS/board.php' ,
+//     dataType : 'html' ,
+//     success: function(data) {
+//       $("#listDiv").html(data);
+//     } });
+//   })
+// })
+
+
+var modal = $("#login_btn");  // Get the modal
+
+// When the user clicks anywhere outside of the modal, close it
+$(window).click(function(e) {
+    //alert(modal[0].className);
+    if (e.target.className == modal[0].className) {
+       $("#login_btn").css("display", "none");
+    }
+});
 </script>
 </body>
 </html>

@@ -4,13 +4,13 @@ require_once("../tools.php");
 require_once("boardDao.php");
 
 $sid = $_SESSION["id"]??''; // 1. 클라이언트가 송신한 id 값(페이지 번호)을 읽는다.
-$id = requestValue("id");   // requestValue는 호출한쪽 name을 인자로 받아서 갖고 옴 페이지 num값
+$num = requestValue("num");   // requestValue는 호출한쪽 name을 인자로 받아서 갖고 옴 페이지 num값
 $bdao = new boardDao();
                             //2. 그 값으로 해당하는 게시글을 읽는다.
-$row = $bdao->getMsg($id);  //1차원 배열로 받고, 그 배열에 있는 정보들을 []안에 넣어서 읽음
+$row = $bdao->getMsg($num);  //1차원 배열로 받고, 그 배열에 있는 정보들을 []안에 넣어서 읽음
 
 if($row['Writer']!=$sid){   //row[writer] = 작성자 id
-  errorBack("다른 작성자의 글은 수정할 수 없습니다.", "board.php");
+  // errorBack("다른 작성자의 글은 수정할 수 없습니다.", "board.php");
 }else{                      // 작성자와 세션id가 같으면 페이지 생성
 ?>
 <!DOCTYPE html>

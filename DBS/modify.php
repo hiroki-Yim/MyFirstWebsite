@@ -13,7 +13,7 @@
 
       $bdao = new boardDao();           //db에 접속하고 정보를 가져오고 update 쿼리를 실행시킨다.
       $bdao->updateMsg($title, $writer, $content, $num);
-      okGo("정상적으로 수정되었습니다.","view.php?id=$num");  // 수정이 완료되면 alert창과 함께 수정했던 글로 다시 돌아간다.
+      okGo("정상적으로 수정되었습니다.","view.php?num=$num");  // 수정이 완료되면 alert창과 함께 수정했던 글로 다시 돌아간다.
     }else{
       errorBack("모든 항목을 빈칸 없이 입력해 주세요");        // 모든 폼에 정보가 쓰여지지 않았다면 error발생 다시 수정 폼으로 돌아간다.63
     }

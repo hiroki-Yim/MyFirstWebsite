@@ -35,13 +35,6 @@ body {
     text-align: center;
     text-decoration: none;
 }
-.sid{
-  color : black;
-}
-
-.label {
-  margin: 14px 20px;
-}
 
 /* Right-aligned link */
 .navbar a.right {
@@ -53,6 +46,16 @@ body {
     background-color: #ddd;
     color: black;
 }
+
+.sid{
+  color : black;
+}
+
+.label {
+  margin: 14px 20px;
+}
+
+
 
 /* Column container */
 .row {

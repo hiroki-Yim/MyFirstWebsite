@@ -1,6 +1,6 @@
 <?php  //공통적으로 사용되는 기능들을 묶어서 사용
     define("MAIN_PAGE", "login_main.php");  //메인 홈페이지 상수로 사용 코드의 재활용을 위해
-    define("NUM_LINES", 10); // 한 페이지에 출력할 게시글 수
+    define("NUM_LINES", 5); // 한 페이지에 출력할 게시글 수
     define("NUM_PAGE_LINKS", 7); // 한 페이지에 출력할 페이지 링크 수
 
     function requestValue($name){
