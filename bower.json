@@ -1,0 +1,22 @@
+{
+  "name": "TERMPROJECT",
+  "homepage": "https://github.com/hiroki-Yim/MyFirstWebsite",
+  "authors": [
+    "hiroki-Yim <imhk_@naver.com>"
+  ],
+  "description": "",
+  "main": "index.php",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.1.3",
+    "popper.js": "^1.14.4"
+  }
+}

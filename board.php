@@ -57,8 +57,4 @@ $msgs = $dao->getManyMsgs();  //  DB에 있는 모든 글 정보를 가져옴
 
     </div>
   </body>
-
-
-
-
 </html>

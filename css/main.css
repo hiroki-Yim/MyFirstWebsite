@@ -28,12 +28,13 @@ body {
 }
 
 /* Style the navigation bar links */
-.navbar a {
+.navbar .label {
     float: left;
     display: block;
     color: white;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
 /* Right-aligned link */

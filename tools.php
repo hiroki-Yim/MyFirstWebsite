@@ -1,20 +1,21 @@
 <?php  //공통적으로 사용되는 기능들을 묶어서 사용
-    define("MAIN_PAGE", "login_main.php");  //메인 홈페이지 상수로 사용 코드의 재활용을 위해
-    define("NUM_LINES", 5); // 한 페이지에 출력할 게시글 수
-    define("NUM_PAGE_LINKS", 7); // 한 페이지에 출력할 페이지 링크 수
-
     function requestValue($name){
       return $_REQUEST[$name]??''; // 변수가 있으면 그 변수를 담고 없으면 빈문자열 넣어줌(에러방지)
+    }
+    
+    function session_exist($param){ //$sid = $_SESSION["id"]??'';
+      return $_SESSION[$param]??'';
     }
 
     function bdUrl($file, $num, $page){
       $join = "?";
+      //$url = "DBS/";  // AJAX 통신 Route를 위해 수정함
       if($num){
-        $file .= $join . "num=$num";
+        $file=$file.$join . "num=$num";
         $join = "&";
       }
       if($page){
-        $file .=  $join . "page=$page";
+        $file=$file.$join . "page=$page";
       }
       return $file;
     }

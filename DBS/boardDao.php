@@ -10,6 +10,7 @@ class boardDao{
         exit($e->getMessage());
     }
   }
+  //board Query
 function insertMsg($title, $writer, $content){  //게시글에 작성된 글을 기반으로 DB에 저장하는 메서드
   try {                                         //(:title)=placeholder 쿼리를 execute하기 전 유동적으로 변할 값에 자리(메모리)지정
   $sql = "insert into board(title, writer, content) values(:title, :writer,  :content)";
@@ -109,7 +110,7 @@ function insertMsg($title, $writer, $content){  //게시글에 작성된 글을 
 
   function getNumMsgs(){  // DB에 있는 총 게시글 갯수를 반환함
     try {
-      $sql = "select count(*) from board";
+      $sql = "select count(*) from board";  // count(num)은 null값이 있는 column이 빠지고 검색됨 count(*)는 모두 나옴 SQL
       $pstmt = $this->db->prepare($sql);
       $pstmt->execute();
       $totalCount = $pstmt->fetchColumn();  // 하나의 값(테이블 전체 레코드 개수)만 반환되므로, fetchColumn()메서드로 그 값을 읽어 레코드 개수 구함
@@ -118,21 +119,69 @@ function insertMsg($title, $writer, $content){  //게시글에 작성된 글을 
     }
       return $totalCount;
   }
-
-  function fileupload($file_name, $file_size){
+  //file upload Query
+  function fileupload($file_name, $file_size, $file_url){
     try{
-      $sql = "insert files set file_name=:file_name, file_size=:file_size";
+      $sql = "insert files set file_name=:file_name, file_size=:file_size, file_url=:file_url";
       // $sql = "insert into files(file_name, file_size) values(:file_name, :file_size)";
       $pstmt = $this->db->prepare($sql);
+      
       $pstmt->bindValue(":file_name", $file_name, PDO::PARAM_STR);
       $pstmt->bindValue(":file_size", $file_size, PDO::PARAM_INT);
+      $pstmt->bindValue(":file_url", $file_url, PDO::PARAM_STR);
       $pstmt->execute();
     }catch(PDOException $e){
       exit($e->getMessage());
     }
   }
 
+  //comment Query
+  function comment($writer, $board_num, $contents){
+    try{
+      $sql = "insert comment set writer=:writer, board_num=:board_num, contents=:contents";
+      $pstmt = $this->db->prepare($sql);
+      $pstmt->bindValue(":writer", $writer, PDO::PARAM_STR);
+      $pstmt->bindValue(":board_num" ,$board_num, PDO::PARAM_STR);
+      $pstmt->bindValue(":contents" ,$contents, PDO::PARAM_STR);
+      $pstmt->execute();
+    }catch(PDOException $e){
+      exit($e->getMessage());
+    }
+  }
 
+  function getComment($board_num){
+    try{
+      $sql = "select * from comment where m_num IS NULL and board_num=:board_num order by regtime";
+      $pstmt = $this->db->prepare($sql);
+      $pstmt->bindValue(":board_num", $board_num, PDO::PARAM_INT);
+      $pstmt->execute();
+      $result = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+    }catch(PDOException $e){
+      exit($e->getMessage());
+    }
+    return $result;
+  }
 
-}
+  function deleteComment($board_num){
+    try{
+
+    }catch(PDOExeption $e){
+      exit($e->getMessage());
+    }
+  }
+
+  function m_comment($m_num){
+    try{
+      $sql ="select * from comment where m_num=:m_num order by regtime ";
+      $pstmt =$this->prepare($sql);
+      $pstmt->bindValue(":m_num",$m_num,PDO::PARAM_INT);
+      $pstmt->execute();
+      $result=$pstmt->fetchAll(PDO::FETCH_ASSOC);
+    }catch(PDOException $e){
+      exit($e->getMessage());
+    }
+  }
+}  
+  //end Comment Query
+  
 ?>

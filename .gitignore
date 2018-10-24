@@ -7,14 +7,13 @@
 /file
 
 /DBS/modify_Form_NSE.php
-
 /DBS/write_Form_NSE.php
 
 /DBS/prev_next.php
-
 /DBS/text
+/login_main.php
 
 /fileupload
-
-/js/dropzone_opt.js
-
+/DBS/js/mdbootstrap.min.js
+/bower_components
+/DBS/uploads/users

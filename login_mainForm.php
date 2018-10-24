@@ -15,7 +15,7 @@ if($id && $pwd){  // 로그인 처리 페이지 -사용자가 입력한 id와 pw
   if ($result['pwd']==$pwd) {  // - 세션에 로그인한 사람의 id와 pwd를 저장}
         $_SESSION["id"] = $id; // 로그인한 사용자의 id를 세션에 저장
         $_SESSION["name"] = $result["name"];  // 결과값에 있는 name을 세션에 저장
-        okGo($result["name"]."님로그인 되었습니다.", "main.php");  // 다 맞으면 로그인 후 메인페이지로 이동
+        okGo($result["name"]."님로그인 되었습니다.", "index.php");  // 다 맞으면 로그인 후 메인페이지로 이동
   }else{ errorBack("아이디와 비밀번호를 다시 확인하세요"); } // 비밀 번호나 아이디가 틀리면
 }else{ errorBack("모두 입력해 주세요.");} // 폼에 입력되지 않은 정보가 있으면
 ?>
