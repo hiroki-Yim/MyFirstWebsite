@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../Model/boardDao.php");
 require_once("../config/tools.php");
 require_once("../config/config.php");
@@ -6,7 +7,6 @@ $dao = new boardDao();               //  1. DB에 등록된 게시글 리스트�
                                                                           /////
 $currentPage = requestValue("page"); // 사용자가 page url에 page paramiter값을 넘겨줘서 받아옴
 $totalCount = $dao->getNumMsgs();    // 게시판 테이블에 게시글이 총 몇 개인지 받아옴
-
 // 집단함수, aggregate function select count(*) from board;
 if($totalCount > 0){
   $totalPages = ceil($totalCount/NUM_LINES);                            // total page = ceil(전체 게시글 수 / NUM_LINES) 올림 함수 ceil
@@ -48,17 +48,9 @@ else{}//게시글이 없을 때
       }
   </style>
 </head>
+
 <body>
-  <?php 
-    if(requestValue('num')){
-      $num = requestValue('num');
-      $boardView = "view.php";
-  }
-  else{
-    $num = 0;
-    $boardView = "board.php";
-  } ?>
-  
+
   <div class="container wrapper">
     <?php if($totalCount > 0) : ?>
     <h2>게시글 리스트</h2>
@@ -98,10 +90,9 @@ else{}//게시글이 없을 때
     <br>
 
     <ul class="pagination pg-dark">
-    
     <?php if($startPage > 1) : ?>
     <li class="page-item">
-    <a class="page-link" href="<?= bdUrl($boardView, $num, $currentPage - NUM_PAGE_LINKS) ?>">
+    <a class="page-link" href="<?= bdUrl("board.php", 0, $currentPage - NUM_PAGE_LINKS) ?>">
     <span aria-hidden="true">&laquo;</span>
       <span class="sr-only">previous</span>
     </a>
@@ -111,13 +102,13 @@ else{}//게시글이 없을 때
         <?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
         <?php if($i == $currentPage) : ?>
         <li class="page-item active">
-        <a class="page-link" href="<?php bdUrl($boardView, $num, $i) ?>">
+        <a class="page-link" href="<?php bdUrl("board.php", 0, $i) ?>">
             now<?php $i ?>
         </a>
         </li>
         <?php else : ?>
         <li class="page-item">
-        <a class="page-link" href="<?= bdUrl($boardView, $num, $i) ?>">
+        <a class="page-link" href="<?= bdUrl("board.php", 0, $i) ?>">
           <?= $i ?></a>&nbsp;
         </li> 
         <?php endif ?>
@@ -125,7 +116,7 @@ else{}//게시글이 없을 때
 
         <?php if($endPage < $totalPages) : ?>
         <li class="page-item ">
-        <a class="page-link" aria-label="Next" href="<?= bdUrl($boardView, $num, $currentPage + NUM_PAGE_LINKS) ?>">
+        <a class="page-link" aria-label="Next" href="<?= bdUrl("board.php", 0, $currentPage + NUM_PAGE_LINKS) ?>">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
         </a>
@@ -133,6 +124,7 @@ else{}//게시글이 없을 때
         </ul>
         <?php endif ?>
         <?php endif ?>
+    
 
         <input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='<?= bdUrl('write_Form.php',0, $currentPage) ?>'">
   </div>

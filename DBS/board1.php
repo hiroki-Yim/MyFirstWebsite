@@ -24,11 +24,7 @@ if($totalCount > 0){
   if($endPage > $totalPages){ $next = true; }                           // endPage가 totalPages보다 크면
 
   $startRecord = floor(($currentPage-1)/NUM_LINES);
-  //select * from board order by regtime limit start, count
-  //current 1: start = 0, count = NUM_LINES -> 0~5
-  //current 2: start = NUM_LINES, count = NUM_LINES 5~9
-  //current 3: start = NUM_LINES*2, count = NUM_LINES 10~14
-  //current 4: start = NUM_LINES*3, count = NUM_LINES 15~19
+
 }//end of if
 else{}//게시글이 없을 때
                                                                           /////
@@ -42,11 +38,6 @@ else{}//게시글이 없을 때
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php require_once('./board-lib.php'); ?>
   
-  <style>
-    a:hover{
-        text-decoration: none;
-      }
-  </style>
 </head>
 <body>
   <?php 
@@ -58,43 +49,66 @@ else{}//게시글이 없을 때
     $num = 0;
     $boardView = "board.php";
   } ?>
-  
-  <div class="container wrapper">
+
     <?php if($totalCount > 0) : ?>
     <h2>게시글 리스트</h2>
-    <table class="table table-hover">
-      <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일시</th>
-        <th>조회수</th>
-      </tr>
-      <tr>
+    
+
         <!--  2. 2차원 배열로 반환된 게시글 리스트 각각에 대해 HTML 문서를 동적으로 생성  -->
+        <div class="d-flex align-content-end flex-wrap">
         <?php foreach ($msgs as $row) : ?>
-        <!-- for문을 돌리면서 정보가 없을 때 까지 뽑아 옴 -->
-        <td>
-          <?= $row["Num"]?>
-        </td> <!-- 각 정보마다 행의 이름으로 열의 정보를 가져 옴 -->
-        <td>
-          <!-- 페이지 리스트가 동적으로 제너레이션 됨 -->
-          <a href="<?= bdUrl("view.php", $row["Num"], $currentPage) ?>">
+        <?php for($i=0; $i<count($msgs); $i++) : ?>
+    <div class="col-lg-4 col-md-6">
+
+<!--Card-->
+<div class="card order-3 p-2 col-example">
+
+  <!--Card image-->
+  <div class="view">
+    <img src="../public/img/pic1.jpg" class="card-img-top" alt="photo">
+    <a href="#">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!--Card content-->
+  <div class="card-body elegant-color white-text">
+    <!--Title-->
+    <h4 class="card-title"><a href="<?= bdUrl("view.php", $row["Num"], $currentPage) ?>">
             <?= $row["Title"]?>
-          </a>
+          </a></h4>
+    <!--Text-->
+    <p class="card-text white-text">
+         <td class="align-left">
+          BoardNum:<?= $row["Num"]?>
         </td>
+        <hr>
         <td>
-          <?= $row["Writer"]?>
+          Writer:<?= $row["Writer"]?>
         </td>
+        <hr>
         <td>
-          <?= passing_time($row["Regtime"]); ?>
+          Regtime:<?= passing_time($row["Regtime"]); ?>
         </td>
+        <hr>
+        <br>
+        
         <td>
-          <?= $row["Hits"]?>
+          Hits:<?= $row["Hits"]?>
         </td>
-      </tr>
+
+    </p>
+    <a href="#" class="btn btn-outline-white btn-md waves-effect">읽기</a>
+  </div>
+
+</div>
+<!--/.Card-->
+
+</div>
+<!-- Grid column -->
+</div>
+        <?php endfor ?>
       <?php endforeach ?>
-    </table>
     <br>
 
     <ul class="pagination pg-dark">

@@ -12,7 +12,7 @@ if(!$sid){  // 만약 로그인 되어있지 않으면 error발생
   $prenex = $bdao->prenex($num); // 이전 글과 다음 글의 정보를 가져오기 위해 db 2차원 배열 형태로 가져옴
   $msg = $bdao->getMsg($num);    // 현재 글 번호에 맞춰 DB에 저장된 글을 가지고 옴(1차원 배열로)
   $bdao->increaseHits($num);     // 현재 글의 조회수를 1증가 시키는 메서드 호출
-  $result = $bdao->getFile($num);
+
   $comments = $bdao->getComment($num);
 }
 ?>
@@ -42,7 +42,6 @@ if(!$sid){  // 만약 로그인 되어있지 않으면 error발생
 </head>
 
 <body>
-
   <div class="container">
     <table class="table">
       <!-- DB에서 가져와서 $msg로 저장되어 있는 1차원 배열의 게시글의 정보를 이용하여 html을 동적으로 생성 -->
@@ -61,30 +60,13 @@ if(!$sid){  // 만약 로그인 되어있지 않으면 error발생
       <tr>
         <th>작성일시</th>
         <td>
-          <?= passing_time($msg["Regtime"]); ?>
+          <?= $msg["Regtime"] ?>
         </td>
       </tr>
       <tr>
         <th>조회수</th>
         <td>
           <?= $msg["Hits"] ?>
-        </td>
-      </tr>
-      <tr>
-        <th>첨부된 파일</th>
-        <td>
-        <?php foreach ($result as $files) :?>
-    <?php if($files['file_name']){
-      $filenames = $files['file_name'];
-      $file_url = $files['file_url'];
-      ?>
-      <a href="../Controller/downloadFile.php?filenames=<?= $filenames ?>&num=<?= $num ?>&file_url=<?= $file_url ?>"> <?=$files['file_name']; ?> </a>
-      <br>
-      <?php
-    }else{
-      return "";
-    } ?>
-    <?php endforeach ?>
         </td>
       </tr>
       <tr>
@@ -110,7 +92,7 @@ if(!$sid){  // 만약 로그인 되어있지 않으면 error발생
       <div class="md-form mb-4 pink-textarea active-pink-textarea" id="comment_input">
         <textarea type="text" id="form21" class="md-textarea form-control" rows="3" name="comments"></textarea>
         <label for="form21" class="id">댓글 작성자 : <code><?= $sid ?></code></label>
-        <button type="submit" class="comment_btn btn btn-primary">댓글쓰기</button>
+        <button type="submit" class="btn btn-primary comment_btn"></button>
         <input type="hidden" name="board_num" value="<?= $num ?>"><!-- 따로 입력 안받으니 값을 정해줘야함 -->
       </div>
     </form>
@@ -136,8 +118,6 @@ if(!$sid){  // 만약 로그인 되어있지 않으면 error발생
       <?php endif ?>
     </div>
   </div> <!-- end of container div -->
-  <hr>
-  <?php require_once('board.php'); ?>
 </body>
 
 </html>

@@ -1,8 +1,3 @@
-   <?php 
-   // 날짜 계산 함수
-
-   ?>
-
    <?php foreach($comments as $comment) : ?>
     <?php if($comments) : ?>
           <div class="media d-block d-md-flex mt-4" id="commentbox">

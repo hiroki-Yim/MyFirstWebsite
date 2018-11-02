@@ -1,7 +1,7 @@
 <?php
   session_start();
-  require_once('./tools.php');
-  require_once('MemberDao.php');
+  require_once('./config/tools.php');
+  require_once('./Model/MemberDao.php');
   $id = session_exist('id');
   $name = $_SESSION["name"]??'';  // null 병합자 PHP 버전7 이후 등장 isset에 삼항연산자 쓴 것과 같음
 ?>
@@ -11,11 +11,11 @@
 <head>
   <title>Page Title</title>
   <?php require_once("html_head.php"); ?>
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./public/css/main.css">
   <link rel="stylesheet" href="file/assets/css/style.min.css">
   <link rel="stylesheet" href="file/assets/css/modules.css">
-  <link rel="stylesheet" href="./css/login_form.css">
-  <script src="./js/tools.js"></script>
+  <link rel="stylesheet" href="./public/css/login_form.css">
+  <script src="./public/js/tools.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
   
 </head>
@@ -43,7 +43,9 @@
     </div>
   </div>
 
-  <?php require_once('loginmodal.php'); ?>
+
+
+  <?php require_once('View/account/loginmodal.php'); ?>
 
   <?php require_once("footer.php"); // footer ?>
 
@@ -55,17 +57,17 @@
       $("#logout").css("display", "block");
     } //else { location.href="./login_main.php"; 세션이 없는사람은 들어올 수 없게 함, }
 
-    $(function(){                     // 게시판을 메인 화면에 출력하기 위해 ajax통신을 이용함
-      $("#board").click(function(){   // 게시판 버튼을 눌렀을 시 받은 data를 기반으로 main부분에 동적으로 생성
-      $.ajax({
-        type: 'get' ,
-        url: './DBS/board.php' ,
-        dataType : 'html' ,
-        success: function(data) {
-          $("#listDiv").html(data);
-        } });
-      })
-    })
+    // $(function(){                     // 게시판을 메인 화면에 출력하기 위해 ajax통신을 이용함
+    //   $("#board").click(function(){   // 게시판 버튼을 눌렀을 시 받은 data를 기반으로 main부분에 동적으로 생성
+    //   $.ajax({
+    //     type: 'get' ,
+    //     url: './DBS/board.php' ,
+    //     dataType : 'html' ,
+    //     success: function(data) {
+    //       $("#listDiv").html(data);
+    //     } });
+    //   })
+    // })
 
 
   </script>

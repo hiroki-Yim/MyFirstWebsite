@@ -1,5 +1,4 @@
 /nse
-
 /nse/nse_files
 
 /img
@@ -8,12 +7,18 @@
 
 /DBS/modify_Form_NSE.php
 /DBS/write_Form_NSE.php
-
 /DBS/prev_next.php
 /DBS/text
-/login_main.php
 
 /fileupload
 /DBS/js/mdbootstrap.min.js
 /bower_components
 /DBS/uploads/users
+
+/tempFolder
+
+/login
+
+/View/kakaoView
+/View/mainPage
+/uploadedFile/Files/users
