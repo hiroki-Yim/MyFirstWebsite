@@ -1,23 +1,13 @@
-/nse
-/nse/nse_files
-
 /img
 
 /file
 
-/DBS/modify_Form_NSE.php
-/DBS/write_Form_NSE.php
-/DBS/prev_next.php
-/DBS/text
-
-/fileupload
-/DBS/js/mdbootstrap.min.js
-/bower_components
-/DBS/uploads/users
-
+/DBS
+TERMPROJECT/DBS
 /tempFolder
-
 /login
+
+/bower_components
 
 /View/kakaoView
 /View/mainPage
