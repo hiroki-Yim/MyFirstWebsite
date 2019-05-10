@@ -5,3 +5,5 @@
 file upload - dropzone.js
 
 editor - summernote.js
+
+scroll - infinite scroll.js
